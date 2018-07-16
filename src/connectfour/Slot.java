@@ -27,14 +27,16 @@ public class Slot {
 		}
 		return true;
 	}
-	
-	/* Place player 1's disc */
-	public void fillWhite() {
-		filledSlot = 1;
+
+	public void fillSlot(Player player) {
+		if(player.getPlayerID() == 1) {
+			filledSlot = 1;
+		} else {
+			filledSlot = 2;
+		}
 	}
 	
-	/* Place player 2's disc */
-	public void fillBlack() {
-		filledSlot = 2;
+	public void removeSlot() {
+		filledSlot = -1;
 	}
 }
