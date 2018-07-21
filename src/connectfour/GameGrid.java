@@ -165,14 +165,15 @@ public class GameGrid {
 		}
 		return bestDiscsRecord;
 	}
-	
-	public int determineBestMove(Player bot) {
+
+	public int[] determineBestMove(Player bot) {
 		int column = 0;
 		int curCombo;
 		int largestSlotCombo = 0;
 		int largestSlotComboColumn = 0;
+		int[] results = new int[2];
 		
-		for(int j=column;j<numberOfColumns-1;j++) {
+		for(int j=column;j<=numberOfColumns-1;j++) {
 			for(int i=numberOfRows-1;i>=0;i--) {
 				if(gameBoard.get(i).get(j).isEmpty()) {
 					gameBoard.get(i).get(j).fillSlot(bot);
@@ -186,7 +187,10 @@ public class GameGrid {
 				}
 			}
 		}
-		return largestSlotComboColumn+1;
+		
+		results[0] = largestSlotCombo;
+		results[1] = largestSlotComboColumn+1;
+		return results;
 	}
 	
 	/* Inserts the player's disc into the game board */

@@ -79,7 +79,6 @@ public class Main {
 	public static void main(String[] args) {
 		int pickedColumn = 0;
 		
-		// Game Initialization
 		System.out.println("Welcome to the classic game of Connect Four");
 		setGameMode();
 		setBoardSize();
@@ -106,10 +105,25 @@ public class Main {
 					System.out.print("The column is full! Pick another column to place your disc in: ");
 				}
 			} else {
-				pickedColumn = board.determineBestMove(playerTurnQueue.peek());
-				board.insertDisc(playerTurnQueue.peek(), pickedColumn);
+				pickedColumn = board.determineBestMove(playerTurnQueue.peek())[1];
+				
+				if(board.determineBestMove(playerTurnQueue.peek())[0] == 4) {
+					board.insertDisc(playerTurnQueue.peek(), pickedColumn);
+				} else {
+					cyclePlayerTurn();
+					
+					if(board.determineBestMove(playerTurnQueue.peek())[0] == 4) {
+						int denyOpponentWinningMove = board.determineBestMove(playerTurnQueue.peek())[1];
+						cyclePlayerTurn();
+						board.insertDisc(playerTurnQueue.peek(), denyOpponentWinningMove);
+						
+					} else {
+						cyclePlayerTurn();
+						board.insertDisc(playerTurnQueue.peek(), pickedColumn);
+						
+					}
+				}
 			}
-			
 			
 			cyclePlayerTurn();
 			System.out.println();
